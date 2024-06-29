@@ -8,34 +8,23 @@ function clearDisplay() {
   display.value = "";
 }
 
-function operate(a, b, operator) {
-  let operation = 0;
-  switch (operator) {
-    case "+":
-      operation = add(a, b);
-    case "-":
-      operation = substract(a, b);
-    case "/":
-      operation = divide(a, b);
+function operate(string) {
+  let calculation = string.split(/\b\s*([+\/*-])\s*/);
+  const expression = calculation[1];
+  switch (expression) {
     case "*":
-      operation = multiply(a, b);
+      display.value = parseFloat(calculation[0]) * parseFloat(calculation[2]);
+      break;
+    case "/":
+      display.value = parseFloat(calculation[0]) / parseFloat(calculation[2]);
+      break;
+    case "+":
+      display.value = parseFloat(calculation[0]) + parseFloat(calculation[2]);
+      break;
+    case "-":
+      display.value = parseFloat(calculation[0]) - parseFloat(calculation[2]);
+      break;
+    default:
+      return `Error ${string} contains an invalid operation.`;
   }
-  return operation;
-}
-
-function add(a, b) {
-  return a + b;
-}
-
-function substract(a, b) {
-  return a - b;
-}
-
-function multiply(a, b) {
-  return a * b;
-}
-
-function divide(a, b) {
-  if (a === 0 || b === 0) alert("Can't divide by 0");
-  return a / b;
 }
